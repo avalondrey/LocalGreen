@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🌱 LocalGreen — Mini-jeu de jardinage</title>
+    <meta name="description" content="Mini-jeu de jardinage isométrique style manga avec IA locale. Cultivez votre jardin virtuel !">
+    <meta property="og:title" content="🌱 LocalGreen — Jardinage Isométrique">
+    <meta property="og:description" content="Mini-jeu de jardinage isométrique style manga. Plantez, arrosez, récoltez !">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#4a7c4a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #2a3f2a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            overflow: hidden;
+        }
+        #game-container {
+            position: relative;
+            width: 100%;
+            max-width: 1280px;
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        #game-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+        #loader {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #2a3f2a 0%, #1a2f1a 50%, #2a4f2a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: opacity 0.5s ease;
+        }
+        #loader.hidden { opacity: 0; pointer-events: none; }
+        #loader h1 { color: #e8f5e8; font-size: 2.5rem; margin-bottom: 8px; }
+        #loader p { color: #8cb88c; font-size: 1rem; margin-bottom: 30px; }
+        .loader-bar {
+            width: 250px; height: 6px;
+            background: #1a2f1a; border-radius: 3px; overflow: hidden;
+        }
+        .loader-bar-fill {
+            width: 0%; height: 100%;
+            background: linear-gradient(90deg, #6bcf6b, #4aaf4a);
+            border-radius: 3px; transition: width 0.3s ease;
+        }
+        .loader-percent { color: #6bcf6b; font-size: 0.85rem; margin-top: 10px; }
+        .game-footer {
+            margin-top: 12px; color: #5a7a5a;
+            font-size: 0.75rem; text-align: center;
+        }
+        .game-footer a { color: #7caf7c; text-decoration: none; }
+        @media (max-width: 768px) {
+            #game-container { border-radius: 0; max-width: 100%; aspect-ratio: auto; height: 100vh; }
+            #loader h1 { font-size: 1.8rem; }
+            .game-footer { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="loader">
+            <h1>🌱 LocalGreen</h1>
+            <p>Jardinage Isométrique Style Manga</p>
+            <div class="loader-bar">
+                <div class="loader-bar-fill" id="progress-bar"></div>
+            </div>
+            <div class="loader-percent" id="progress-text">Chargement... 0%</div>
+        </div>
+    </div>
+    <div class="game-footer">
+        🌱 LocalGreen — Godot 4.6 |
+        <a href="https://github.com/avalondrey/LocalGreen" target="_blank">GitHub</a>
+    </div>
+    <script>
+        const engine = new Engine({
+            args: [],
+            canvasResizePolicy: 2,
+            executable: "",
+            html5Options: {
+                "preserveDrawingBuffer": true,
+                "antialias": true,
+                "audioContext": true
+            }
+        });
+        function setLoadingProgress(progress) {
+            const bar = document.getElementById('progress-bar');
+            const text = document.getElementById('progress-text');
+            const pct = Math.round(progress * 100);
+            bar.style.width = pct + '%';
+            text.textContent = 'Chargement... ' + pct + '%';
+        }
+        function hideLoader() {
+            const loader = document.getElementById('loader');
+            loader.classList.add('hidden');
+            setTimeout(() => loader.remove(), 500);
+        }
+        (async function() {
+            setLoadingProgress(0);
+            try {
+                await engine.init();
+                engine.setProgressFunc(setLoadingProgress);
+                await engine.start({ 'onProgress': setLoadingProgress });
+                hideLoader();
+            } catch (e) {
+                console.error('Erreur de chargement:', e);
+                document.getElementById('progress-text').textContent = '❌ Erreur. Rechargez la page.';
+                document.getElementById('progress-text').style.color = '#ff6b6b';
+            }
+        })();
+        document.addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive: false });
+        document.getElementById('game-container').addEventListener('dblclick', function() {
+            if (document.fullscreenElement) document.exitFullscreen();
+            else document.documentElement.requestFullscreen().catch(() => {});
+        });
+    </script>
+</body>
+</html>

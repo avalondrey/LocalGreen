@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://bwe026px28xdc"]
+
+[ext_resource type="Script" uid="uid://bkjear5s280pf" path="res://scripts/GreenhouseGrid.gd" id="1_greenhouse"]
+[ext_resource type="Script" uid="uid://qhmi5gmpt2r5" path="res://scripts/GameManager.gd" id="2_game"]
+[ext_resource type="Script" uid="uid://5b33udyyr1jw" path="res://scripts/UIManager.gd" id="3_ui"]
+[ext_resource type="Script" uid="uid://cmri3wyicwmpj" path="res://scripts/DayNightCycle.gd" id="4_daynight"]
+[ext_resource type="Script" uid="uid://ccfwaimkm4drk" path="res://scripts/AIManager.gd" id="5_ai"]
+[ext_resource type="Script" uid="uid://cqutv86l211jy" path="res://scripts/WeatherSystem.gd" id="6_weather"]
+[ext_resource type="Script" uid="uid://bxfdq5wqs4bj5" path="res://scripts/HoverHighlight.gd" id="7_hover"]
+[ext_resource type="Script" uid="uid://n7oalnmsdg54" path="res://scripts/WebAdapter.gd" id="8_web"]
+[ext_resource type="Script" uid="uid://cm5veed4h3pxn" path="res://scripts/TooltipSystem.gd" id="9_tooltip"]
+[ext_resource type="Script" uid="uid://b11iuylvkmj88" path="res://scripts/ShopSystem.gd" id="10_shop"]
+[ext_resource type="Script" uid="uid://cqquuvmashnqx" path="res://scripts/TutorialSystem.gd" id="11_tutorial"]
+[ext_resource type="Script" uid="uid://cvf45jesv8ewn" path="res://scripts/AchievementSystem.gd" id="12_achieve"]
+[ext_resource type="Script" uid="uid://cgf23k3qm2hoc" path="res://scripts/ChatAI.gd" id="13_chat"]
+[ext_resource type="Script" uid="uid://damsucexbkmnx" path="res://scripts/SoundManager.gd" id="14_sound"]
+
+[node name="Main" type="Node2D" unique_id=1016808189]
+
+[node name="Background" type="ColorRect" parent="." unique_id=226163796]
+anchors_preset = -1
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+color = Color(0.18, 0.28, 0.18, 1)
+
+[node name="Camera" type="Camera2D" parent="." unique_id=1252549709]
+
+[node name="WebAdapter" type="Node" parent="." unique_id=823608809]
+script = ExtResource("8_web")
+
+[node name="GameManager" type="Node" parent="." unique_id=1635179811]
+script = ExtResource("2_game")
+
+[node name="GreenhouseGrid" type="Node2D" parent="." unique_id=1483045079]
+script = ExtResource("1_greenhouse")
+
+[node name="PlantContainer" type="Node2D" parent="GreenhouseGrid" unique_id=1726818420]
+z_index = 1
+
+[node name="HoverHighlight" type="Node2D" parent="." unique_id=1525420180]
+z_index = 99
+script = ExtResource("7_hover")
+
+[node name="AIManager" type="Node" parent="." unique_id=1284960084]
+script = ExtResource("5_ai")
+
+[node name="WeatherSystem" type="Node2D" parent="." unique_id=1788134276]
+z_index = 999
+script = ExtResource("6_weather")
+
+[node name="UIManager" type="CanvasLayer" parent="." unique_id=200542801]
+layer = 10
+script = ExtResource("3_ui")
+
+[node name="TooltipSystem" type="CanvasLayer" parent="." unique_id=480179050]
+layer = 11
+script = ExtResource("9_tooltip")
+
+[node name="ShopSystem" type="CanvasLayer" parent="." unique_id=1893964792]
+layer = 12
+script = ExtResource("10_shop")
+
+[node name="TutorialSystem" type="CanvasLayer" parent="." unique_id=662731999]
+layer = 13
+script = ExtResource("11_tutorial")
+
+[node name="AchievementSystem" type="CanvasLayer" parent="." unique_id=341438195]
+layer = 14
+script = ExtResource("12_achieve")
+
+[node name="ChatAI" type="CanvasLayer" parent="." unique_id=835644298]
+layer = 15
+script = ExtResource("13_chat")
+
+[node name="DayNightCycle" type="Node2D" parent="." unique_id=758460716]
+z_index = 1000
+script = ExtResource("4_daynight")
+
+[node name="SoundManager" type="Node" parent="." unique_id=972832527]
+script = ExtResource("14_sound")
