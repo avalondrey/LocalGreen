@@ -1,0 +1,19 @@
+# Godot
+.godot/
+export.cfg
+export_presets.cfg
+*.import
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Assets générés (optionnel)
+assets/generated/
