@@ -1,4 +1,4 @@
-# Godot
+﻿# Godot
 .godot/
 export.cfg
 export_presets.cfg
@@ -15,5 +15,5 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Assets générés (optionnel)
+# Assets générés
 assets/generated/
